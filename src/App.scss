@@ -1,0 +1,38 @@
+.App-link {
+  color: #09d3ac;
+}
+
+.stress-level {
+  font-size: 48px;
+}
+
+.todo-container {
+  width: 50%;
+  padding: 16px;
+  border: 1px solid blue;
+  border-radius: 4px;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  margin: 8px 0px;
+  min-height: 64px;
+  background-color: #aaa;
+  color: white;
+  border-radius: 4px;
+
+  .select {
+    min-width: 180px;
+    min-height: 32px;
+
+  }
+}
+
+.add-task {
+  background-color: white;
+  border: 1px dashed blue;
+  color: black;
+}
