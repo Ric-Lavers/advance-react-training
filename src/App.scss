@@ -1,5 +1,5 @@
-.App-link {
-  color: #09d3ac;
+.App {
+  text-align: center;
 }
 
 .stress-level {
@@ -24,11 +24,19 @@
   color: white;
   border-radius: 4px;
 
-  .select {
+  input {
+    font-size: 18px;
     min-width: 180px;
-    min-height: 32px;
-
+    height: 42px;
+    color: black;
   }
+
+  select {
+    height: 42px;
+    width: 100%;
+    font-size: 14px;
+  }
+
 }
 
 .add-task {

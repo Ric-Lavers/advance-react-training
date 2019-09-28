@@ -31,12 +31,13 @@ const findEmoji = amount => {
 };
 
 const NavBar = () => {
-  const { tasksTotal } = React.useContext(AppContext);
+  const { tasksTotal, addOne } = React.useContext(AppContext);
 
   const emotion = findEmoji(tasksTotal);
 
   return (
     <header>
+      <button onClick={addOne}>add one</button>
       <span className="stress-level" role="img">
         {emotion}
       </span>

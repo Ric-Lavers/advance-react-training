@@ -22,6 +22,9 @@
 		"Blob": true,
 		"navigator": true
 	},
+	"env": {
+		"es6": true
+	},
 	"parser": "babel-eslint",
 	"parserOptions": {
 		"sourceType": "module"

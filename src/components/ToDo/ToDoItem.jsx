@@ -13,60 +13,22 @@ const options = [
   { value: 21, label: '21' }
 ];
 
-const ToDoItem = React.forwardRef(
-  ({ id, title, rating, addType, onMouseLeave }, ref) => {
-    const [value, setValue] = useState(
-      options.find(({ value }) => value === rating)
-    );
-    const { addToTotal } = useContext(AppContext);
-    const currentValue = value ? value.value : 0;
-    useEffect(() => {
-      addToTotal(rating);
-    }, []);
-
-    const handleMouseLeave = () => {
-      onMouseLeave(currentValue, id);
-    };
-    useEffect(() => {
-      addType && handleMouseLeave();
-    }, [currentValue]);
-
-    const handleChange = option => {
-      let diff = currentValue - option.value;
-      addToTotal(diff);
-      setValue(option);
-    };
-
-    return (
-      <div
-        ref={ref}
-        onMouseLeave={handleMouseLeave}
-        className={`todo-item ${addType ? 'add-task' : ''}`}
-      >
-        <h3 contentEditable={addType} suppressContentEditableWarning>
-          {title}
-        </h3>
-        <label>
-          <Select
-            className="select"
-            placeholder="Enter difficulty"
-            name="difficulty"
-            onChange={handleChange}
-            options={options}
-            value={value}
-          />
-        </label>
-      </div>
-    );
-  }
-);
+const ToDoItem = ({ id, title, rating }) => {
+  const { tasksTotal } = useContext(AppContext);
+  // console.count('ToDoItem');
+  return (
+    <div className="todo-item">
+      <h3>{title}</h3>
+      <label>
+        {rating} of {tasksTotal} ({`${((rating / tasksTotal) * 100) | 0}`}%)
+      </label>
+    </div>
+  );
+};
 
 ToDoItem.defaultProps = {
   title: 'Title',
-  rating: '',
-  addType: false,
-  ref: null,
-  onMouseLeave: () => {}
+  rating: ''
 };
 
 export default ToDoItem;

@@ -1,14 +1,14 @@
 import React, { createContext, useState } from 'react';
 
 export const AppContext = createContext({
-  tasksTotal: localStorage.tasksTotal ? localStorage.tasksTotal : 0
+  tasksTotal: 0
 });
 
 export const AppProvider = ({ children }) => {
   const [tasksTotal, setTasksTotal] = useState(0);
 
-  const addToTotal = amount => {
-    setTasksTotal(parseInt(tasksTotal) - amount);
+  const addOne = () => {
+    setTasksTotal(tasksTotal + 1);
   };
 
   return (
@@ -16,13 +16,10 @@ export const AppProvider = ({ children }) => {
       value={{
         tasksTotal,
         setTasksTotal,
-        addToTotal
+        addOne
       }}
     >
-      <>
-        {String(tasksTotal)}
-        {children}
-      </>
+      {children}
     </AppContext.Provider>
   );
 };
