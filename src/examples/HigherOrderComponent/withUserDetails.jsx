@@ -15,6 +15,36 @@ const fakeFetch = () => {
     setTimeout(() => res(demoUserDetails), 1500);
   });
 };
+window['x'] = 5;
+export const useUserDetails = (
+  initalUserDetails = JSON.parse(localStorage.getItem('userDetails')) || {}
+) => {
+  const [userDetails, setUserDetails] = React.useState(initalUserDetails);
+  const [isLoading, setLoading] = React.useState(true);
+  const shouldRefetch = React.useCallback(
+    userDetails.lastLogin < Date.now() - 60 * 60 * 1000,
+    [userDetails.lastLogin]
+  );
+
+  const getUserDetails = () => {
+    fakeFetch().then(userDetails => {
+      userDetails.lastLogin = Date.now();
+      setUserDetails(userDetails);
+      setLoading(false);
+      localStorage.setItem('userDetails', JSON.stringify(userDetails));
+    });
+    return () => {
+      userDetails.lastLogin = Date.now();
+      localStorage.setItem('userDetails', JSON.stringify(userDetails));
+    };
+  };
+
+  React.useEffect(getUserDetails, [userDetails, shouldRefetch]);
+  return {
+    isLoading,
+    userDetails
+  };
+};
 
 /**
  * This HOC will fetch the userDetails from local storage if it is not present or lastLogin is more than a hour ago,

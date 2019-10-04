@@ -21,9 +21,9 @@ const withSetTasksTotal = Component => () => {
   return <Component setTasksTotal={setTasksTotal} />;
 };
 
-const ToDoContainer = React.memo(({ setTasksTotal }) => {
+const ToDoContainer = ({ setTasksTotal }) => {
   const [someState, setSomeState] = useState(0);
-  const addRef = createRef();
+  // const addRef = createRef();
 
   const [tasks, setTasks] = useState(() => {
     const total = demoTaskData.reduce((a, c) => a + c.rating, 0);
@@ -33,16 +33,18 @@ const ToDoContainer = React.memo(({ setTasksTotal }) => {
     });
   });
 
-  const addTask = (title, rating) => {
-    const total = tasks.reduce((a, c) => a + c.rating, 0) + rating;
-    const allTasks = [
-      ...tasks,
-      { title, rating, id: createGuid(), tasksTotal: total }
-    ];
-    setTasksTotal(total);
-    setTasks(allTasks);
-    addRef.current.focus();
-  };
+  const addTask = React.useCallback(
+    (title, rating) => {
+      const total = tasks.reduce((a, c) => a + c.rating, 0) + rating;
+      const allTasks = [
+        ...tasks,
+        { title, rating, id: createGuid(), tasksTotal: total }
+      ];
+      setTasksTotal(total);
+      setTasks(allTasks);
+    },
+    [setTasksTotal, tasks]
+  );
 
   return (
     <div className="todo-container">
@@ -54,39 +56,53 @@ const ToDoContainer = React.memo(({ setTasksTotal }) => {
         return <ToDoItem key={task.id} {...task} />;
       })}
 
-      <ToDoInput
-        ref={addRef}
-        onSubmit={addTask}
-        // onSubmit={React.useCallback(addTask, [setTasksTotal])}
-      />
+      <ToDoInput onSubmit={addTask} />
     </div>
   );
-});
+};
 
 export default withSetTasksTotal(ToDoContainer);
+/*  class equivilant
+class ToDoContainerClass extends React.PComponent {
+  constructor(props) {
+    super();
+    const total = demoTaskData.reduce((a, c) => a + c.rating, 0);
+    props.setTasksTotal(total);
+    this.state = {
+      someState: 0,
+      tasks: demoTaskData.map((task, i) => {
+        return { ...task, tasksTotal: total };
+      })
+    };
+  }
+  setSomeState = () => {
+    this.setState({ someState: this.state.someState + 1 });
+  };
 
-/* 
- <ToDoItem
-      id={createGuid()}
-      rating={5}
-      title="one"
-      tasksTotal={tasksTotal}
-    />,
-    <ToDoItem
-      id={createGuid()}
-      rating={5}
-      title="two"
-      tasksTotal={tasksTotal}
-    />,
-    <ToDoItem
-      id={createGuid()}
-      rating={5}
-      title="three"
-      tasksTotal={tasksTotal}
-    />,
-    <ToDoItem
-      id={createGuid()}
-      rating={5}
-      title="four"
-      tasksTotal={tasksTotal}
-    /> */
+  addTask = (title, rating) => {
+    const total = this.state.tasks.reduce((a, c) => a + c.rating, 0) + rating;
+    const allTasks = [
+      ...this.state.tasks,
+      { title, rating, id: createGuid(), tasksTotal: total }
+    ];
+    this.props.etTasksTotal(total);
+    this.setState({ tasks: allTasks });
+  };
+  render() {
+    return (
+      <div className="todo-container">
+        <button onClick={this.setSomeState}>{this.state.someState}</button>
+        <h2>Todo:</h2>
+
+        {this.state.tasks.map(task => {
+          // console.count('mapping');
+          return <ToDoItem key={task.id} {...task} />;
+        })}
+
+        <ToDoInput onSubmit={this.state.addTask} />
+      </div>
+    );
+  }
+}
+
+ */

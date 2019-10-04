@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, createRef } from 'react';
 
 const options = [
   { value: '', label: 'Please select' },
@@ -11,63 +11,65 @@ const options = [
   { value: 21, label: '21' }
 ];
 
-const ToDoItem = React.memo(
-  forwardRef(({ onSubmit }, ref) => {
-    const [selectedOption, setOption] = useState('');
-    const [input, setInput] = useState('');
+const ToDoInput = ({ onSubmit }) => {
+  const ref = createRef();
+  const [selectedOption, setOption] = useState('');
+  const [input, setInput] = useState('');
 
-    const handleInputChange = ({ target: { value } }) => setInput(value);
-    const handleValueChange = ({ target: { value } }) => {
-      setOption(parseInt(value));
-    };
-    const handleSubmit = e => {
-      e.preventDefault();
-      if (input && selectedOption) {
-        onSubmit(input, selectedOption);
-        setInput('');
-        setOption('');
-      }
-    };
+  const handleInputChange = ({ target: { value } }) => setInput(value);
+  const handleValueChange = ({ target: { value } }) => {
+    setOption(parseInt(value));
+  };
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (input && selectedOption) {
+      onSubmit(input, selectedOption);
+      setInput('');
+      setOption('');
+      ref.current.focus();
+    }
+  };
+  console.log('rending input');
+  const renderOptions = React.useMemo(
+    () =>
+      options.map(({ label, value }) => {
+        console.log('..');
+        return (
+          <option key={label} selected={value === selectedOption} value={value}>
+            {label}
+          </option>
+        );
+      }),
+    [selectedOption]
+  );
+  return (
+    <form className="todo-item add-task">
+      <input
+        ref={ref}
+        onChange={handleInputChange}
+        name="newTitle"
+        value={input}
+        placeholder="Enter new task"
+      />
 
-    const renderOptions = React.useMemo(
-      () =>
-        options.map(({ label, value }) => {
-          console.log('..');
-          return (
-            <option key={label} value={value}>
-              {label}
-            </option>
-          );
-        }),
-      [options]
-    );
-    console.log('rendering input');
-    return (
-      <form className="todo-item add-task">
-        <input
-          ref={ref}
-          onChange={handleInputChange}
-          name="newTitle"
-          value={input}
-          placeholder="Enter new task"
-        />
+      <label>
+        <select selected={selectedOption} onChange={handleValueChange}>
+          {renderOptions}
+        </select>
+      </label>
+      <input onClick={handleSubmit} type="submit" />
+    </form>
+  );
+};
 
-        <label>
-          <select selected={selectedOption} onChange={handleValueChange}>
-            {renderOptions}
-          </select>
-        </label>
-        <input onClick={handleSubmit} type="submit" />
-      </form>
-    );
-  }),
-  (prevProps, nextProps) => {
-    return prevProps.onSubmit === nextProps.onSubmit;
-  }
-);
-
-ToDoItem.defaultProps = {
+ToDoInput.defaultProps = {
   onSubmit: () => {}
 };
 
-export default ToDoItem;
+// export default ToDoInput;
+export default React.memo(ToDoInput, (prevProps, nextProps) => {
+  for (let key in nextProps) {
+    if (nextProps[key] === prevProps[key]) return true;
+  }
+  return false;
+});

@@ -21,11 +21,11 @@ const stressLevel = {
 
 const findEmoji = amount => {
   let key = 0;
-  Object.keys(stressLevel).forEach(k => {
+  for (let k in stressLevel) {
     if (amount > k) {
       key = k;
     }
-  });
+  }
 
   return stressLevel[key];
 };

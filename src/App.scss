@@ -1,6 +1,33 @@
 .App {
   text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+/* TASK ONE */
+.task-one__section {
+  display: block;
+
+  details {
+    border: 1px solid #ccc;
+    cursor: pointer;
+
+
+    summary {
+      padding: 8px 16px;
+
+      &:hover {
+        background-color: #ccc;
+      }
+
+    }
+
+    p {
+      padding: 0 16px;
+    }
+  }
+
+}
+
 
 .stress-level {
   font-size: 48px;

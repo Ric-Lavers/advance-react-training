@@ -1,10 +1,13 @@
 import React from 'react';
 
 import './App.scss';
-
+import TaskOne from './tasks/one/TaskOne';
 import NavBar from './components/NavBar';
 import ToDoContainer from './components/ToDo/ToDoContainer';
-import withUserDetails from './examples/HigherOrderComponent/withUserDetails';
+import withUserDetails, {
+  useUserDetails
+} from './examples/HigherOrderComponent/withUserDetails';
+import UseState from './examples/useState/UseState';
 window['React'] = React;
 
 const UserDetails = props => {
@@ -28,6 +31,16 @@ const UserDetails = props => {
 
 const WrapperUserDetails = withUserDetails(UserDetails);
 
+const Hooks = () => {
+  const { userDetails, isLoading } = useUserDetails();
+
+  return isLoading ? (
+    <p>...isLoading</p>
+  ) : (
+    <UserDetails userDetails={userDetails} />
+  );
+};
+
 class App extends React.Component {
   state = {
     hasError: false
@@ -41,8 +54,16 @@ class App extends React.Component {
     if (this.state.hasError) {
       return <p>Oopsie whoopsie there's seems to be a little buggy wuggy!</p>;
     }
-    //hoc
-    // return <WrapperUserDetails />;
+
+    return <TaskOne />;
+    // return <UseState />;
+    // hoc
+    return (
+      <>
+        <Hooks />
+        <WrapperUserDetails />
+      </>
+    );
     // To do App
 
     return (
