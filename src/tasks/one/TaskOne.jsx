@@ -1,4 +1,5 @@
 import React from 'react';
+import ErrorButton from './ErrorButton';
 
 const MySection = ({ title = '', children }) => {
   return (
@@ -11,18 +12,29 @@ const MySection = ({ title = '', children }) => {
 };
 
 export default class TaskOne extends React.Component {
-  throwError() {
-    throw new Error('Oopsy theres a little buggy wuggy');
+  static getDerivedStateFromError(err) {
+    return { hasError: true };
   }
 
+  componentDidCatch(err, info) {
+    console.log(err, info);
+  }
+
+  state = {
+    hasError: false
+  };
+
   render() {
+    if (this.state.hasError) {
+      return <div>oh no a error occured</div>;
+    }
     return (
       <MySection title="My title">
         <details>
           <summary>Fragments</summary>
           <p>
             Let you group a list of children without adding extra nodes to the
-            DOM{' '}
+            DOM
           </p>
         </details>
         <details>
@@ -30,7 +42,7 @@ export default class TaskOne extends React.Component {
           <p>
             Protects your app by catching errors allowing you to render fallback
             UI or perform side effet such as logging.
-            <button onClick={this.throwError}>errors such as this</button>
+            <ErrorButton />
           </p>
         </details>
       </MySection>
