@@ -1,4 +1,5 @@
 import React from 'react';
+import ErrorButton from './ErrorButton';
 
 const MySection = ({ title, description, children }) => {
   return (
@@ -12,10 +13,6 @@ const MySection = ({ title, description, children }) => {
 };
 
 export default class TaskOne extends React.Component {
-  throwError() {
-    throw new Error('Oopsy theres a little buggy wuggy');
-  }
-
   render() {
     return (
       <MySection
@@ -34,7 +31,7 @@ export default class TaskOne extends React.Component {
           <p>
             Protects your app by catching errors allowing you to render fallback
             UI or perform side effet such as logging.
-            <button onClick={this.throwError}>errors such as this</button>
+            <ErrorButton />
           </p>
         </details>
         <details>
