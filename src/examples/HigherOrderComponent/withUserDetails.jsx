@@ -10,13 +10,13 @@ const demoUserDetails = {
   lastLogin: ''
 };
 
-const fakeFetch = () => {
+export const fakeFetch = () => {
   return new Promise(res => {
     setTimeout(() => res(demoUserDetails), 1500);
   });
 };
-window['x'] = 5;
-export const useUserDetails = (
+
+/* export const useUserDetails = (
   initalUserDetails = JSON.parse(localStorage.getItem('userDetails')) || {}
 ) => {
   const [userDetails, setUserDetails] = React.useState(initalUserDetails);
@@ -45,6 +45,7 @@ export const useUserDetails = (
     userDetails
   };
 };
+ */
 
 /**
  * This HOC will fetch the userDetails from local storage if it is not present or lastLogin is more than a hour ago,
@@ -55,7 +56,7 @@ export const useUserDetails = (
 function withUserDetails(WrappedComponent, options = {}) {
   return class extends React.Component {
     state = {
-      userDetails: JSON.parse(localStorage.getItem('userDesstails')),
+      userDetails: JSON.parse(localStorage.getItem('userDetails')),
       isLoading: true
     };
 
@@ -92,7 +93,7 @@ function withUserDetails(WrappedComponent, options = {}) {
       return isLoading ? (
         <p>...isLoading</p>
       ) : (
-        <WrappedComponent userDetails={userDetails} {...this.props} />
+        <WrappedComponent details={userDetails} {...this.props} />
       );
     }
   };

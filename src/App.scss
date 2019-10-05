@@ -1,7 +1,10 @@
 .App {
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  justify-content: center;
 }
+
 
 /* TASK ONE */
 .task-one__section {
@@ -29,6 +32,9 @@
 }
 
 
+/* TASK three */
+
+/* 
 .stress-level {
   font-size: 48px;
 }
@@ -70,4 +76,4 @@
   background-color: white;
   border: 1px dashed blue;
   color: black;
-}
+} */
