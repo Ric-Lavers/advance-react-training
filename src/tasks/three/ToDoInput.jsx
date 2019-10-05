@@ -1,7 +1,7 @@
-import React, { useState, forwardRef, createRef } from 'react';
+import React, { useState, createRef, useContext } from 'react';
+import { AppContext } from './Context';
 
 const options = [
-  { value: '', label: 'Please select' },
   { value: 1, label: '1' },
   { value: 2, label: '2' },
   { value: 3, label: '3' },
@@ -11,7 +11,13 @@ const options = [
   { value: 21, label: '21' }
 ];
 
-const ToDoInput = ({ onSubmit }) => {
+const withScaleType = Component => props => {
+  const { scaleType } = useContext(AppContext);
+
+  return <Component {...props} scaleType={scaleType} />;
+};
+
+const ToDoInput = ({ onSubmit, scaleType }) => {
   const ref = createRef();
   const [selectedOption, setOption] = useState('');
   const [input, setInput] = useState('');
@@ -29,19 +35,20 @@ const ToDoInput = ({ onSubmit }) => {
       ref.current.focus();
     }
   };
-  console.log('rending input');
-  const renderOptions = React.useMemo(
-    () =>
-      options.map(({ label, value }) => {
-        console.log('..');
-        return (
-          <option key={label} selected={value === selectedOption} value={value}>
-            {label}
-          </option>
-        );
-      }),
-    [selectedOption]
-  );
+
+  const renderOptions = React.useMemo(() => {
+    console.log('..');
+    return options.map(({ label, value }, i) => {
+      const v = scaleType === 'fibonacci' ? value : i + 1;
+      return (
+        <option key={label} value={v} selected={selectedOption === v}>
+          {scaleType === 'fibonacci' ? label : String(i + 1)}
+        </option>
+      );
+    });
+  }, [selectedOption, scaleType]);
+  console.log('rendering input');
+
   return (
     <form className="todo-item add-task">
       <input
@@ -54,6 +61,7 @@ const ToDoInput = ({ onSubmit }) => {
 
       <label>
         <select selected={selectedOption} onChange={handleValueChange}>
+          <option value="">Please select</option>
           {renderOptions}
         </select>
       </label>
@@ -67,9 +75,11 @@ ToDoInput.defaultProps = {
 };
 
 // export default ToDoInput;
-export default React.memo(ToDoInput, (prevProps, nextProps) => {
-  for (let key in nextProps) {
-    if (nextProps[key] === prevProps[key]) return true;
-  }
-  return false;
-});
+export default withScaleType(
+  React.memo(ToDoInput, (prevProps, nextProps) => {
+    for (let key in nextProps) {
+      if (nextProps[key] === prevProps[key]) return true;
+    }
+    return false;
+  })
+);

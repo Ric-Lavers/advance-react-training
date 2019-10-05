@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext, createRef } from 'react';
-import { AppContext } from '../../context/AppContext';
+import React, { useState, useContext } from 'react';
+import { AppContext } from './Context';
 import ToDoItem from './ToDoItem';
 import ToDoInput from './ToDoInput';
 

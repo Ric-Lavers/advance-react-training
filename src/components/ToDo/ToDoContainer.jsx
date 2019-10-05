@@ -18,7 +18,7 @@ const demoTaskData = [
 const withSetTasksTotal = Component => () => {
   const { setTasksTotal } = useContext(AppContext);
 
-  return <Component setTasksTotal={setTasksTotal} />;
+  return React.memo(<Component setTasksTotal={setTasksTotal} />);
 };
 
 const ToDoContainer = ({ setTasksTotal }) => {
