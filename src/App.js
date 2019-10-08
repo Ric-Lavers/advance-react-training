@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 
 import './App.scss';
-import NavBar from './components/NavBar';
 import ToDoContainer from './components/ToDo/ToDoContainer';
 import UseState from './examples/useState/UseState';
 import SuspenseExample from './examples/Suspense/SuspenseExample';

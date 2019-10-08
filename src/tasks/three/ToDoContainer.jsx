@@ -9,10 +9,12 @@ const createGuid = () =>
     .substr(2, 9)}`;
 
 const demoTaskData = [
+  /* 
   { title: 'one', rating: 5, id: createGuid() },
   { title: 'two', rating: 5, id: createGuid() },
   { title: 'three', rating: 5, id: createGuid() },
   { title: 'four', rating: 5, id: createGuid() }
+ */
 ];
 
 const withSetTasksTotal = Component => () => {
