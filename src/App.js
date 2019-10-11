@@ -1,31 +1,33 @@
 import React, { Suspense } from 'react';
 
 import './App.scss';
+import MemoVsPure from './examples/Memoisation/MemoisationDemo.jsx';
 import ToDoContainer from './components/ToDo/ToDoContainer';
 import UseState from './examples/useState/UseState';
 import SuspenseExample from './examples/Suspense/SuspenseExample';
 import TaskThree from './tasks/three/TaskThree';
 import TaskTwo from './tasks/two/TaskTwo';
-const TaskOne = React.lazy(() => {
-  return new Promise(res => {
-    setTimeout(() => {
-      res(import('./tasks/one/TaskOne'));
-    }, 4000);
-  });
-});
+import TaskOne from './tasks/one/TaskOne';
+// const TaskOne = React.lazy(() => {
+//   return new Promise(res => {
+//     setTimeout(() => {
+//       res(import('./tasks/one/TaskOne'));
+//     }, 4000);
+//   });
+// });
 
 window['React'] = React;
 
 class App extends React.Component {
   render() {
+    return React.createElement(MemoVsPure);
     // return <SuspenseExample />;
     // return <TaskOne />;
     // return <UseState />;
     // hoc
     // return <TaskTwo />;
     // To do App
-
-    return <TaskThree />;
+    // return <TaskThree />;
   }
 }
 
