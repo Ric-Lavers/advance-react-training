@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback, memo } from 'react';
+import React, { useState, useContext, useCallback, memo, useMemo } from 'react';
 import { AppContext } from './Context_4';
 import ToDoItem from './ToDoItem_4';
 import ToDoInput from './ToDoInput_4';
@@ -33,6 +33,13 @@ const ToDoContainer = ({ setTasksTotal }) => {
     });
   });
 
+  const tasksList = useMemo(() => {
+    return tasks.map(task => {
+      // console.count('mapping');
+      return <ToDoItem key={task.id} {...task} />;
+    });
+  }, [tasks]);
+
   const addTask = useCallback(
     (title, rating) => {
       const total = tasks.reduce((a, c) => a + c.rating, 0) + rating;
@@ -52,10 +59,7 @@ const ToDoContainer = ({ setTasksTotal }) => {
         {`parent state update  clicked:${someState}`}
       </button>
       <h2>Todo:</h2>
-      {tasks.map(task => {
-        // console.count('mapping');
-        return <ToDoItem key={task.id} {...task} />;
-      })}
+      {tasksList}
       <ToDoInput onSubmit={addTask} />
     </div>
   );
