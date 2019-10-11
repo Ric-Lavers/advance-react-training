@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext, createRef } from 'react';
-import { AppContext } from '../../context/AppContext';
+import React, { useState, useContext } from 'react';
+import { AppContext } from './Context';
 import ToDoItem from './ToDoItem';
 import ToDoInput from './ToDoInput';
 
@@ -9,16 +9,18 @@ const createGuid = () =>
     .substr(2, 9)}`;
 
 const demoTaskData = [
+  /* 
   { title: 'one', rating: 5, id: createGuid() },
   { title: 'two', rating: 5, id: createGuid() },
   { title: 'three', rating: 5, id: createGuid() },
   { title: 'four', rating: 5, id: createGuid() }
+ */
 ];
 
 const withSetTasksTotal = Component => () => {
   const { setTasksTotal } = useContext(AppContext);
 
-  return React.memo(<Component setTasksTotal={setTasksTotal} />);
+  return <Component setTasksTotal={setTasksTotal} />;
 };
 
 const ToDoContainer = ({ setTasksTotal }) => {
