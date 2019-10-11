@@ -20,14 +20,15 @@ window['React'] = React;
 
 class App extends React.Component {
   render() {
-    return React.createElement(MemoVsPure);
-    // return <SuspenseExample />;
-    // return <TaskOne />;
+    return <TaskOne />;
+    //
     // return <UseState />;
     // hoc
     // return <TaskTwo />;
     // To do App
     // return <TaskThree />;
+    // return React.createElement(MemoVsPure);
+    // return <SuspenseExample />;
   }
 }
 
