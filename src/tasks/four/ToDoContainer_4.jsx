@@ -1,7 +1,7 @@
-import React, { useState, useContext, useCallback } from 'react';
-import { AppContext } from './Context';
-import ToDoItem from './ToDoItem';
-import ToDoInput from './ToDoInput';
+import React, { useState, useContext, useCallback, memo } from 'react';
+import { AppContext } from './Context_4';
+import ToDoItem from './ToDoItem_4';
+import ToDoInput from './ToDoInput_4';
 
 const createGuid = () =>
   `${Math.random()
@@ -45,25 +45,24 @@ const ToDoContainer = ({ setTasksTotal }) => {
     },
     [setTasksTotal, tasks]
   );
-
+  console.log("ToDoContainer - Shouldn't update with nav bar changes");
   return (
     <div className="todo-container">
       <button onClick={() => setSomeState(someState + 1)}>
         {`parent state update  clicked:${someState}`}
       </button>
       <h2>Todo:</h2>
-
       {tasks.map(task => {
         // console.count('mapping');
         return <ToDoItem key={task.id} {...task} />;
       })}
-
       <ToDoInput onSubmit={addTask} />
     </div>
   );
 };
 
-export default withSetTasksTotal(ToDoContainer);
+export default withSetTasksTotal(memo(ToDoContainer));
+
 /*  class equivilant
 class ToDoContainerClass extends React.PComponent {
   constructor(props) {

@@ -1,5 +1,5 @@
 import React, { useState, createRef, useContext } from 'react';
-import { AppContext } from './Context';
+import { AppContext } from './Context_4';
 
 const options = [
   { value: 1, label: '1' },
@@ -37,7 +37,7 @@ const ToDoInput = ({ onSubmit, scaleType }) => {
   };
 
   const renderOptions = React.useMemo(() => {
-    console.log('this should only render once');
+    console.log('select options - this should only render once');
     return options.map(({ label, value }, i) => {
       const v = scaleType === 'fibonacci' ? value : i + 1;
       return (

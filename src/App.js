@@ -5,6 +5,7 @@ import ToDoContainer from './components/ToDo/ToDoContainer';
 import UseState from './examples/useState/UseState';
 import SuspenseExample from './examples/Suspense/SuspenseExample';
 import TaskThree from './tasks/three/TaskThree';
+import TaskFour from './tasks/four/TaskFour';
 import TaskTwo from './tasks/two/TaskTwo';
 const TaskOne = React.lazy(() => {
   return new Promise(res => {
@@ -25,7 +26,7 @@ class App extends React.Component {
     // return <TaskTwo />;
     // To do App
 
-    return <TaskThree />;
+    return <TaskFour />;
   }
 }
 
