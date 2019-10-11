@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 
 import './App.scss';
+import HOCExample from './examples/HigherOrderComponent/ExampleHOC';
 import MemoVsPure from './examples/Memoisation/MemoisationDemo.jsx';
 import ToDoContainer from './components/ToDo/ToDoContainer';
 import UseState from './examples/useState/UseState';
@@ -20,8 +21,9 @@ window['React'] = React;
 
 class App extends React.Component {
   render() {
-    return <TaskOne />;
-    //
+    return <HOCExample />;
+
+    // return <TaskOne />;
     // return <UseState />;
     // hoc
     // return <TaskTwo />;
