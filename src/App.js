@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.scss';
+import HOCExample from './examples/HigherOrderComponent/ExampleHOC';
+import MemoVsPure from './examples/Memoisation/MemoisationDemo.jsx';
+import ToDoContainer from './components/ToDo/ToDoContainer';
+import UseState from './examples/useState/UseState';
+import SuspenseExample from './examples/Suspense/SuspenseExample';
+import TaskThree from './tasks/three/TaskThree';
+import TaskTwo from './tasks/two/TaskTwo';
+import TaskOne from './tasks/one/TaskOne';
+// const TaskOne = React.lazy(() => {
+//   return new Promise(res => {
+//     setTimeout(() => {
+//       res(import('./tasks/one/TaskOne'));
+//     }, 4000);
+//   });
+// });
+
+window['React'] = React;
+
+class App extends React.Component {
+  render() {
+    return <HOCExample />;
+
+    // return <TaskOne />;
+    // return <UseState />;
+    // hoc
+    // return <TaskTwo />;
+    // To do App
+    // return <TaskThree />;
+    // return React.createElement(MemoVsPure);
+    // return <SuspenseExample />;
+  }
 }
 
 export default App;
