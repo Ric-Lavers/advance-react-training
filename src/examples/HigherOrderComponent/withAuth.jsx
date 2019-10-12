@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { authProvider } from './authProvider';
 
 function withAuth(WrappedComponent) {
