@@ -1,4 +1,4 @@
-import React, { useState, createRef, useContext } from 'react';
+import React, { useState, createRef, useContext, memo } from 'react';
 import { AppContext } from './Context_4';
 
 const options = [
@@ -11,13 +11,9 @@ const options = [
   { value: 21, label: '21' }
 ];
 
-const withScaleType = Component => props => {
+const ToDoInput = ({ onSubmit }) => {
   const { scaleType } = useContext(AppContext);
 
-  return <Component {...props} scaleType={scaleType} />;
-};
-
-const ToDoInput = ({ onSubmit, scaleType }) => {
   const ref = createRef();
   const [selectedOption, setOption] = useState('');
   const [input, setInput] = useState('');
@@ -36,11 +32,11 @@ const ToDoInput = ({ onSubmit, scaleType }) => {
     }
   };
 
-  const renderOptions = React.useMemo(() => {
+  const renderOptions = () => {
     console.log(
       '%c select options',
       'font-weight: bold',
-      '- this should only render once'
+      "- this shouldn't render on every input change"
     );
     return options.map(({ label, value }, i) => {
       const v = scaleType === 'fibonacci' ? value : i + 1;
@@ -50,11 +46,11 @@ const ToDoInput = ({ onSubmit, scaleType }) => {
         </option>
       );
     });
-  }, [scaleType]);
+  };
   console.log(
     '%c ToDoInput',
     'font-weight: bold',
-    '- should only be called with a onChange '
+    '- should only be called with a input change '
   );
 
   return (
@@ -70,7 +66,7 @@ const ToDoInput = ({ onSubmit, scaleType }) => {
       <label>
         <select value={selectedOption} onChange={handleValueChange}>
           <option value="">Please select</option>
-          {renderOptions}
+          {renderOptions()}
         </select>
       </label>
       <input onClick={handleSubmit} type="submit" />
@@ -83,4 +79,4 @@ ToDoInput.defaultProps = {
 };
 
 // export default ToDoInput;
-export default withScaleType(React.memo(ToDoInput));
+export default memo(ToDoInput);

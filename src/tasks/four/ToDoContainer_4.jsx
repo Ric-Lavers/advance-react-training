@@ -15,15 +15,9 @@ const demoTaskData = [
   { title: 'four', rating: 5, id: createGuid() }
 ];
 
-const withSetTasksTotal = Component => () => {
-  const { setTasksTotal } = useContext(AppContext);
-
-  return <Component setTasksTotal={setTasksTotal} />;
-};
-
-const ToDoContainer = ({ setTasksTotal }) => {
+const ToDoContainer = () => {
+  const { setTasksTotal, tasksTotal } = useContext(AppContext);
   const [someState, setSomeState] = useState(0);
-  // const addRef = createRef();
 
   const [tasks, setTasks] = useState(() => {
     const total = demoTaskData.reduce((a, c) => a + c.rating, 0);
@@ -33,29 +27,25 @@ const ToDoContainer = ({ setTasksTotal }) => {
     });
   });
 
-  const tasksList = useMemo(() => {
-    return tasks.map(task => {
-      // console.count('mapping');
-      return <ToDoItem key={task.id} {...task} />;
-    });
-  }, [tasks]);
+  /* //! This should only map on when adding a new task  */
+  const tasksList = tasks.map(task => {
+    return <ToDoItem key={task.id} {...task} tasksTotal={tasksTotal} />;
+  });
 
-  const addTask = useCallback(
-    (title, rating) => {
-      const total = tasks.reduce((a, c) => a + c.rating, 0) + rating;
-      const allTasks = [
-        ...tasks,
-        { title, rating, id: createGuid(), tasksTotal: total }
-      ];
-      setTasksTotal(total);
-      setTasks(allTasks);
-    },
-    [setTasksTotal, tasks]
-  );
+  const addTask = (title, rating) => {
+    const total = tasks.reduce((a, c) => a + c.rating, 0) + rating;
+    const allTasks = [
+      ...tasks,
+      { title, rating, id: createGuid(), tasksTotal: total }
+    ];
+    setTasksTotal(total);
+    setTasks(allTasks);
+  };
+
   console.log(
     '%c ToDoContainer',
     'font-weight: bold',
-    "- Shouldn't update with nav bar changes"
+    "- Shouldn't update with context updates"
   );
   return (
     <div className="todo-container">
@@ -69,7 +59,7 @@ const ToDoContainer = ({ setTasksTotal }) => {
   );
 };
 
-export default withSetTasksTotal(memo(ToDoContainer));
+export default ToDoContainer;
 
 /*  class equivilant
 class ToDoContainerClass extends React.PComponent {

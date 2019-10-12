@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 
 import { AppContext } from './Context_4';
 
-const ToDoItem = ({ id, title, rating }) => {
-  const { tasksTotal } = useContext(AppContext);
+const ToDoItem = ({ id, title, rating, tasksTotal }) => {
   console.log(
     '%c ToDoItem',
     'font-weight: bold',

@@ -1,10 +1,6 @@
 import React, { useContext } from 'react';
 
-import { AppContext } from './Context';
-
-const ToDoItem = ({ id, title, rating }) => {
-  const { tasksTotal } = useContext(AppContext);
-  // console.count('ToDoItem');
+const ToDoItem = ({ id, title, rating, tasksTotal }) => {
   return (
     <div className="todo-item">
       <h3>{title}</h3>
