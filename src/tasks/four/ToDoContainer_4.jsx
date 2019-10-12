@@ -52,7 +52,11 @@ const ToDoContainer = ({ setTasksTotal }) => {
     },
     [setTasksTotal, tasks]
   );
-  console.log("ToDoContainer - Shouldn't update with nav bar changes");
+  console.log(
+    '%c ToDoContainer',
+    'font-weight: bold',
+    "- Shouldn't update with nav bar changes"
+  );
   return (
     <div className="todo-container">
       <button onClick={() => setSomeState(someState + 1)}>

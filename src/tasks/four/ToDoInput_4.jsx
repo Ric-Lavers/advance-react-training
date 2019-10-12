@@ -37,7 +37,11 @@ const ToDoInput = ({ onSubmit, scaleType }) => {
   };
 
   const renderOptions = React.useMemo(() => {
-    console.log('select options - this should only render once');
+    console.log(
+      '%c select options',
+      'font-weight: bold',
+      '- this should only render once'
+    );
     return options.map(({ label, value }, i) => {
       const v = scaleType === 'fibonacci' ? value : i + 1;
       return (
@@ -47,7 +51,11 @@ const ToDoInput = ({ onSubmit, scaleType }) => {
       );
     });
   }, [scaleType]);
-  console.log('should only be called with a change in ToDoInput ');
+  console.log(
+    '%c ToDoInput',
+    'font-weight: bold',
+    '- should only be called with a onChange '
+  );
 
   return (
     <form className="todo-item add-task">
