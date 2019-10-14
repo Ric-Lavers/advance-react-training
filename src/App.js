@@ -6,6 +6,7 @@ import MemoVsPure from './examples/Memoisation/MemoisationDemo.jsx';
 import ToDoContainer from './components/ToDo/ToDoContainer';
 import UseStateExample from './examples/useState/UseState';
 import SuspenseExample from './examples/Suspense/SuspenseExample';
+import ContextExample from './examples/Context/ContextExample';
 import TaskThree from './tasks/three/TaskThree';
 import TaskTwo from './tasks/two/TaskTwo';
 import TaskOne from './tasks/one/TaskOne';
@@ -19,18 +20,17 @@ import TaskOne from './tasks/one/TaskOne';
 
 window['React'] = React;
 
-const App = () => {
-  // return <HOCExample />;
-  // return <UseStateExample />;
-
-  // return <TaskOne />;
-  // return <UseState />;
-  // hoc
-  return <TaskTwo />;
-  // To do App
-  // return <TaskThree />;
-  // return React.createElement(MemoVsPure);
-  // return <SuspenseExample />;
-};
+class App extends React.Component {
+  render() {
+    // return <SuspenseExample />;
+    // return <TaskOne />;
+    // return <UseState />;
+    // hoc
+    // return <TaskTwo />;
+    // To do App
+    return <ContextExample />;
+    // return <TaskThree />;
+  }
+}
 
 export default App;
