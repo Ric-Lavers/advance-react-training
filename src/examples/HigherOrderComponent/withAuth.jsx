@@ -19,7 +19,7 @@ class Auth extends React.Component {
 }
 
 const useAuth = () => {
-  const [auth, setAuth] = useState(authProvider);
+  const [auth] = useState(authProvider);
 
   return { auth };
 };
@@ -28,4 +28,4 @@ const ComponentA = ({ auth }) => {
   return <div> Hi, {auth.name}</div>;
 };
 
-export { withAuth, Auth };
+export { withAuth, Auth, useAuth };
