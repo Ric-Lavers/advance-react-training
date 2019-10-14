@@ -21,12 +21,12 @@ window['React'] = React;
 
 const App = () => {
   // return <HOCExample />;
-  return <UseStateExample />;
+  // return <UseStateExample />;
 
   // return <TaskOne />;
   // return <UseState />;
   // hoc
-  // return <TaskTwo />;
+  return <TaskTwo />;
   // To do App
   // return <TaskThree />;
   // return React.createElement(MemoVsPure);
