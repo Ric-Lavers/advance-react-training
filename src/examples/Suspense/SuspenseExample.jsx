@@ -2,7 +2,7 @@ import React, { Component, Suspense } from 'react';
 const TaskOne = React.lazy(() => {
   return new Promise(res => {
     setTimeout(() => {
-      res(import('../../tasks/one/TaskOne'));
+      res();
     }, 3000);
   });
 });

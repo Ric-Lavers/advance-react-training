@@ -19,13 +19,20 @@ window['React'] = React;
 
 class App extends React.Component {
   render() {
-    // return <SuspenseExample />;
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <TaskOne />
+      </Suspense>
+    );
+    {
+      /*  return <SuspenseExample />;
     // return <TaskOne />;
     // return <UseState />;
     // hoc
     // return <TaskTwo />;
     // To do App
-
+ */
+    }
     return <TaskFour />;
   }
 }
